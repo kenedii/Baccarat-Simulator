@@ -1,7 +1,8 @@
 import Baccarat as bg
 import statistics
+# Simulation of the Baccarat strategy seen in this video: https://www.youtube.com/watch?v=g1JpoE2UyF8
 
-def Player(self): # A player. Can play rounds of the martingale strategy
+def Player(): # A player. Can play rounds of the martingale strategy
     starting_money = 100
     starting_bet = 1
 
