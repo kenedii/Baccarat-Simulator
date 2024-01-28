@@ -1,3 +1,6 @@
+Dependencies: pip install deck-of-cards
+https://pypi.org/project/deck-of-cards/
+
 Functions:
 def cbaccarat_rules(card):  # Takes a card object (deck-of-cards.py) and returns its value in Baccarat.
 
