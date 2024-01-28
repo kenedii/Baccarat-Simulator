@@ -1,12 +1,20 @@
 import Baccarat as bg
 
-def Player(self):
+def Player(self): # A player. Can play rounds of the martingale strategy
     starting_money = 100
     starting_bet = 1
-    time = 1000 # Number of times to run the martingale strategy. Players will stop if broke
-    number_of_players = 1
 
-def PBPPBB(starting_money, starting_bet):
+def cancelIfNegative(money): # Stops gambling if player is broke
+    if money <= 0:
+        return 0
+    else: return 1
+
+def dontBetOverMoney(current_bet, money):  # Dont place a bet that will send player into negative
+    if current_bet >= money:
+        return money
+    else:
+        return current_bet
+def PBPPBB(starting_money, starting_bet): # The logic for the strategy. Bets on PBPPBB doubling up each loss.
     if bg.game()[0] == 'Player':
         starting_money += starting_bet
     else:
@@ -52,15 +60,18 @@ def PBPPBB(starting_money, starting_bet):
                             PBPPBB(starting_money,(current_bet))
     return [starting_money, starting_bet]
 
-def cancelIfNegative(money):
-    if money <= 0:
-        return 0
-    else: return 1
 
-def dontBetOverMoney(current_bet, money):
-    if current_bet >= money:
-        return money
-    else:
-        return current_bet
+def createPlayer(starting_money, starting_bet): # Create a custom player
+    player = Player()
+    player.starting_money = starting_money
+    player.starting_bet = starting_bet
+    return player
 
-def PlayerSimulation():
+def PlayerSimulation(startingmoney, startingbet, time):
+    player = createPlayer(startingmoney, startingbet)
+    for i in range(time): # Runs one iteration of the strategy for every time increment
+        PBPPBB(player.starting_money, player.starting_bet)
+    return player
+
+def MultiplePlayerSimulation(players, startingmoney, startingbet, time):
+    
