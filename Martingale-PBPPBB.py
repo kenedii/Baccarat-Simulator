@@ -2,9 +2,10 @@ import Baccarat as bg
 import statistics
 # Simulation of the Baccarat strategy seen in this video: https://www.youtube.com/watch?v=g1JpoE2UyF8
 
-def Player(): # A player. Can play rounds of the martingale strategy
-    starting_money = 100
-    starting_bet = 1
+class Player(): # A player. Can play rounds of the martingale strategy
+    def __init__(self, starting_money = 100, starting_bet = 1):
+        starting_bet = 1
+        starting_money = 100
 
 def cancelIfNegative(money): # Stops gambling if player is broke
     if money <= 0:
