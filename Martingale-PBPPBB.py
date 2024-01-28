@@ -1,4 +1,5 @@
 import Baccarat as bg
+import statistics
 
 def Player(self): # A player. Can play rounds of the martingale strategy
     starting_money = 100
@@ -71,7 +72,18 @@ def PlayerSimulation(startingmoney, startingbet, time):
     player = createPlayer(startingmoney, startingbet)
     for i in range(time): # Runs one iteration of the strategy for every time increment
         PBPPBB(player.starting_money, player.starting_bet)
-    return player
+    return player.startingmoney
 
 def MultiplePlayerSimulation(players, startingmoney, startingbet, time):
-    
+    balances = []
+    for u in range(players):
+        balances.append(PlayerSimulation(startingmoney,startingbet, time))
+    average = sum(balances) / len(balances) # Mean balance out of every player
+    median = statistics.median(balances)
+    return [average, median, balances]
+
+def __main__():
+    results = MultiplePlayerSimulation(1000, 250,2,101)
+    print('Average Player Money:',results[0], 'Median player money', results[1])
+
+__main__()
