@@ -3,13 +3,13 @@ from deck_of_cards import deck_of_cards
 decks = 8  # Number of Decks to use in the shoe
 
 
+
 def cbaccarat_rules(card):  # Takes a card object and returns its value in Baccarat.
     if card.rank >= 10:
         value = 0  # 10 or above cards are worth zero
         return value
     else:
         return card.rank  # Aces are one and 2-9 cards are their own rank in deck-of-cards.py.
-
 
 def baccarat_rules(value):  # Takes a number and returns its value in Baccarat.
     if value == 10:
@@ -20,14 +20,11 @@ def baccarat_rules(value):  # Takes a number and returns its value in Baccarat.
         return value
 
 
-def game(deck='ind'):
-    if (deck != 'ind'): # Only creates a new deck if one hasnt been passed in
-        # Multiple baccarat games pass on the deck from the simulate_game function to
-        # Lower the amount of redundant deck shuffles.
-        deck = deck_of_cards.DeckOfCards()  # Initialize the deck
-        for i in range(decks):
-            deck.add_deck()  # Adds a new deck to the initial deck object
-            deck.shuffle_deck()
+def game():
+    deck = deck_of_cards.DeckOfCards() #Initialize the deck
+    for i in range(decks):
+        deck.add_deck()  # Adds a new deck to the initial deck object
+        deck.shuffle_deck()
 
     player = cbaccarat_rules(deck.give_random_card()) + cbaccarat_rules(deck.give_random_card())
     banker = cbaccarat_rules(deck.give_random_card()) + cbaccarat_rules(deck.give_random_card())
@@ -63,20 +60,11 @@ def game(deck='ind'):
 
 
 def simulate_games(games=2):  # Simulate multiple Baccarat games
-    deck = deck_of_cards.DeckOfCards()  # Initialize the deck
-    for i in range(decks):
-        deck.add_deck()  # Adds a new deck to the initial deck object
-    deck.shuffle_deck()
-
-    banker = 0 # Initialize the counter, number of wins for each betting option
+    banker = 0
     player = 0
     tie = 0
-
     for i in range(games):
-        if i % 80 == 0: # Shuffles the deck every 80 games.
-            deck.shuffle_deck()
-
-        rungame = game(deck)
+        rungame = game()
         if rungame[0] == 'Banker':
             player += 1
         elif rungame[0] == 'Player':
@@ -85,6 +73,4 @@ def simulate_games(games=2):  # Simulate multiple Baccarat games
             tie += 1
 
     return [player, banker, tie]
-
-
 
