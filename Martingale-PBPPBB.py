@@ -74,7 +74,7 @@ def PlayerSimulation(startingmoney, startingbet, time):
     player = createPlayer(startingmoney, startingbet)
     for i in range(time): # Runs one iteration of the strategy for every time increment
         PBPPBB(player.starting_money, player.starting_bet)
-    return player.startingmoney
+    return player.starting_money
 
 def MultiplePlayerSimulation(players, startingmoney, startingbet, time):
     balances = []
