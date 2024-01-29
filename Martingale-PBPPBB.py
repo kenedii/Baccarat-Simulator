@@ -17,51 +17,55 @@ def dontBetOverMoney(current_bet, money):  # Dont place a bet that will send pla
         return money
     else:
         return current_bet
-def PBPPBB(starting_money, starting_bet): # The logic for the strategy. Bets on PBPPBB doubling up each loss.
+def PBPPBB(player): # The logic for the strategy. Bets on PBPPBB doubling up each loss.
+    current_bet = player.starting_bet
+    if (cancelIfNegative(player.starting_money) == 0): return [player.starting_money, player.starting_bet]
+    current_bet = dontBetOverMoney(current_bet, player.starting_money)
     if bg.game()[0] == 'Player':
-        starting_money += starting_bet
+        player.starting_money += player.starting_bet
     else:
-        current_bet = 2 * starting_bet
-        starting_money -= starting_bet
-        if (cancelIfNegative(starting_money) == 0): return [starting_money, starting_bet]
-        current_bet = dontBetOverMoney(current_bet, starting_money)
+        current_bet = 2 * player.starting_bet
+        player.starting_money -= player.starting_bet
+        if (cancelIfNegative(player.starting_money) == 0): return [player.starting_money, player.starting_bet]
+        current_bet = dontBetOverMoney(current_bet, player.starting_money)
         if bg.game()[0] == 'Banker':
-            starting_money += current_bet
+            player.starting_money += current_bet
         else:
-            starting_money -= current_bet
-            current_bet = 2 *2* starting_bet
-            current_bet = dontBetOverMoney(current_bet,starting_money)
-            if (cancelIfNegative(starting_money) == 0): return [starting_money, starting_bet]
-            current_bet = dontBetOverMoney(current_bet, starting_money)
+            player.starting_money -= current_bet
+            current_bet = 2 *2* player.starting_bet
+            current_bet = dontBetOverMoney(current_bet,player.starting_money)
+            if (cancelIfNegative(player.starting_money) == 0): return [player.starting_money, player.starting_bet]
+            current_bet = dontBetOverMoney(current_bet, player.starting_money)
             if bg.game()[0] == 'Player':
-                starting_money += current_bet
+                player.starting_money += current_bet
             else:
-                starting_money -= current_bet
-                current_bet = 2 *2*2* starting_bet
-                if (cancelIfNegative(starting_money) == 0): return [starting_money, starting_bet]
-                current_bet = dontBetOverMoney(current_bet, starting_money)
+                player.starting_money -= current_bet
+                current_bet = 2 *2*2* player.starting_bet
+                if (cancelIfNegative(player.starting_money) == 0): return [player.starting_money, player.starting_bet]
+                current_bet = dontBetOverMoney(current_bet, player.starting_money)
                 if bg.game()[0] == 'Player':
-                    starting_money += current_bet
+                    player.starting_money += current_bet
                 else:
-                    starting_money -= current_bet
-                    current_bet = 2 *2*2*2* starting_bet
-                    if (cancelIfNegative(starting_money) == 0): return [starting_money, starting_bet]
-                    current_bet = dontBetOverMoney(current_bet, starting_money)
+                    player.starting_money -= current_bet
+                    current_bet = 2 *2*2*2* player.starting_bet
+                    if (cancelIfNegative(player.starting_money) == 0): return [player.starting_money, player.starting_bet]
+                    current_bet = dontBetOverMoney(current_bet, player.starting_money)
                     if bg.game()[0] == 'Banker':
-                        starting_money += current_bet
+                        player.starting_money += current_bet
                     else:
-                        starting_money -= current_bet
-                        current_bet = 2 *2*2*2*2* starting_bet
-                        if (cancelIfNegative(starting_money) == 0): return [starting_money, starting_bet]
-                        current_bet = dontBetOverMoney(current_bet, starting_money)
+                        player.starting_money -= current_bet
+                        current_bet = 2 *2*2*2*2* player.starting_bet
+                        if (cancelIfNegative(player.starting_money) == 0): return [player.starting_money, player.starting_bet]
+                        current_bet = dontBetOverMoney(current_bet, player.starting_money)
                         if bg.game()[0] == 'Banker':
-                            starting_money += current_bet
+                            player.starting_money += current_bet
                         else:
-                            starting_money -= current_bet
-                            if (cancelIfNegative(starting_money) == 0): return [starting_money, starting_bet]
-                            current_bet = dontBetOverMoney(current_bet, starting_money)
-                            PBPPBB(starting_money,(current_bet))
-    return [starting_money, starting_bet]
+                            player.starting_money -= current_bet
+                            if (cancelIfNegative(player.starting_money) == 0): return [player.starting_money, player.starting_bet]
+                            current_bet = dontBetOverMoney(current_bet, player.starting_money)
+                            player.starting_bet = current_bet
+                            PBPPBB(player)
+    return [player.starting_money, player.starting_bet]
 
 
 def createPlayer(starting_money, starting_bet): # Create a custom player
@@ -73,7 +77,7 @@ def createPlayer(starting_money, starting_bet): # Create a custom player
 def PlayerSimulation(startingmoney, startingbet, time):
     player = createPlayer(startingmoney, startingbet)
     for i in range(time): # Runs one iteration of the strategy for every time increment
-        PBPPBB(player.starting_money, player.starting_bet)
+        PBPPBB(player)
     return player.starting_money
 
 def MultiplePlayerSimulation(players, startingmoney, startingbet, time):
@@ -85,7 +89,12 @@ def MultiplePlayerSimulation(players, startingmoney, startingbet, time):
     return [average, median, balances]
 
 def __main__():
-    results = MultiplePlayerSimulation(1000, 250,2,101)
-    print('Average Player Money:',results[0], 'Median player money', results[1])
+    players = 1000
+    startingmoney = 1000
+    startingbet = 2
+    time = 50
+    results = MultiplePlayerSimulation(players, startingmoney,startingbet,time)
+    print(results[2])
+    print('Average Player Money:', results[0], 'Median player money', results[1])
 
 __main__()
