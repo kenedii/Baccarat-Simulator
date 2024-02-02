@@ -17,3 +17,18 @@ Returns: [Player, Banker, Tie]
 
 In 100,000 simulations:
 Player 42,640 Banker 47,487 Tie 9,873
+
+PBPPBB tests the strategy of Player Banker Player Player Banker Banker
+This allows you to create a "player" who plays baccarat with this strategy with their money at a specified bet value.
+Functions:
+
+MultiplePlayerSimulation(players, startingmoney, startingbet, time)
+players(int): Number of players to run in the strategy.
+startingmoney(int): How much money each player starts out with.
+startingbet(int): The value of the first bet the player will make
+time(int): Number of iterations to run the strategy for. In an iteration, a player either profits the startingbet value or they go broke.
+Returns: [average(float), median(float), balances[arr]]
+
+def PBPPBB(player): # The logic for the strategy. Bets on PBPPBB doubling up each loss.
+def PlayerSimulation(startingmoney, startingbet, time):
+def createPlayer(starting_money, starting_bet): # Create a custom player
