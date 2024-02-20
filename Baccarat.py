@@ -1,6 +1,6 @@
 from deck_of_cards import deck_of_cards
 
-decks = 8  # Number of Decks to use in the shoe
+decks = 1  # Number of Decks to use in the shoe
 
 
 
