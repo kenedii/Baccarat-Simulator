@@ -1,4 +1,4 @@
-A baccarat game in Python. Draws from 8 decks in shoe and decks get shuffled every game for randomness.
+A baccarat game in Python. Draws from a deck in a simulated shoe and decks get shuffled every game for randomness.
 
 Dependencies: pip install deck-of-cards
 https://pypi.org/project/deck-of-cards/
