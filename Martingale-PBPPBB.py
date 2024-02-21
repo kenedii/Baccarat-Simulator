@@ -143,12 +143,12 @@ def MultiplePlayerSimulation(players, startingmoney, startingbet, time):
     return [average, median, stdev, balances]
 
 def __main__():
-    players = 300
-    startingmoney = 10000
-    startingbet = 10
+    players = 333
+    startingmoney = 2000
+    startingbet = 20
     time = 100
     results = MultiplePlayerSimulation(players, startingmoney,startingbet,time)
-    print(results[2])
+    print(results[3])
     print('Average Player Money:', results[0], 'Median player money', results[1])
     print('Standard deviation:', results[2])
 
