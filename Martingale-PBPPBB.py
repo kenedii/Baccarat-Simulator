@@ -157,7 +157,8 @@ def MultiplePlayerSimulation(players, startingmoney, startingbet, time):
     average = sum(balances) / len(balances)  # Mean balance out of every player
     median = statistics.median(balances)
     stdev = statistics.stdev(balances)
-    return [average, median, stdev, balances]
+    variance = statistics.variance(balances,average)
+    return [average, median, stdev, variance, balances]
 
 
 def __main__():
@@ -166,9 +167,9 @@ def __main__():
     startingbet = 20
     time = 200
     results = MultiplePlayerSimulation(players, startingmoney, startingbet, time)
-    print(results[3])
+    print(results[4])
     print('Average Player Money:', results[0], 'Median player money', results[1])
-    print('Standard deviation:', results[2])
+    print('Standard deviation:', results[2] + '  Variance:', results[3])
 
 
 __main__()
