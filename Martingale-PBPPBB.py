@@ -1,6 +1,6 @@
 import Baccarat as bg
 import statistics
-
+import numpy
 
 # Simulation of the Baccarat strategy seen in this video: https://www.youtube.com/watch?v=g1JpoE2UyF8
 
@@ -183,21 +183,24 @@ def MultiplePlayerSimulation(players, startingmoney, startingbet, time):
     stdev = statistics.stdev(balances)
     variance = statistics.variance(balances)
 
+    ratio_zeros = (players-numpy.count_nonzero(balances)) / players # Number of players who went bust
+
     if players >= 2:
-        return [average, median, stdev, variance, balances]
+        return [average, median, stdev, variance, balances, ratio_zeros]
     else: # Cannot calculate the standard deviation with 1 player.
-        return [average, median, variance, balances]
+        return [average, median, variance, balances, ratio_zeros]
 
 
 def __main__():
-    players = 200
-    startingmoney = 10000
-    startingbet = 15
-    time = 25
+    players = 10000
+    startingmoney = 1000
+    startingbet = 20
+    time = 30
     results = MultiplePlayerSimulation(players, startingmoney, startingbet, time)
     print(results[4])  # Print the balance of every player at the end of the simulation
     print('Average Player Money:', results[0], 'Median player money', results[1])
     print('Standard deviation:', results[2], '  Variance:', results[3])
+    print(f'Number of players who went broke: {results[5]}')
 
 
 __main__()
