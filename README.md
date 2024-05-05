@@ -1,4 +1,5 @@
 A baccarat game in Python. Draws from a deck in a simulated shoe and decks get shuffled every game for randomness.
+You can play Baccarat in the console by downloading `Baccarat.py` and `PlayBaccaratInConsole.py` and running `python PlayBaccaratInConsole.py`
 
 Dependencies: pip install deck-of-cards
 https://pypi.org/project/deck-of-cards/
