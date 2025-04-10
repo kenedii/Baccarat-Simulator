@@ -1,44 +1,129 @@
-A baccarat game in Python. Draws from a deck in a simulated shoe and decks get shuffled every game for randomness.
-You can play Baccarat in the console by downloading `Baccarat.py` and `PlayBaccaratInConsole.py` and running `python PlayBaccaratInConsole.py`
+# 🃏 Baccarat Game Simulator in Python
 
-Dependencies: pip install -r requirements.txt
+A simple yet powerful Baccarat game simulator written in Python. This program draws cards from a simulated deck (shoe), reshuffling for randomness before each game. You can play Baccarat directly in your console or simulate thousands of games to analyze strategies.
 
-Functions:
+---
 
-def cbaccarat_rules(card):  # Takes a card object (deck-of-cards.py) and returns its value in Baccarat.
+## 🎮 How to Play
 
-def baccarat_rules(value):  # Takes a number and returns its value in Baccarat.
+Run the following script to play Baccarat in the console:
 
-def game(): # Simulates a game of baccarat
-Returns: ["Winner", player, banker] ["Player", 8, 0] ["Tie", 2, 2]
+```bash
+python PlayBaccaratInConsole.py
+```
 
-def simulate_games(games=2):  # Simulate multiple Baccarat games
-Returns: [Player, Banker, Tie]
+---
 
-In 100,000 simulations:
-Player 42,640 Banker 47,487 Tie 9,873
+## 📦 Installation
 
-PBPPBB tests the strategy of Player Banker Player Player Banker Banker
+Install all required dependencies using:
 
-This allows you to create a "player" who plays baccarat with this strategy with their money at a specified bet value.
+```bash
+pip install -r requirements.txt
+```
 
-Functions:
+---
 
-MultiplePlayerSimulation(players, startingmoney, startingbet, time)
+## 🧠 Game Mechanics
 
-players(int): Number of players to run in the strategy.
+This implementation uses traditional Baccarat rules with a few helper functions to calculate card values and simulate gameplay outcomes.
 
-startingmoney(int): How much money each player starts out with.
+### `cbaccarat_rules(card)`
+- 📥 Input: `card` — a card object from `deck-of-cards.py`.
+- 📤 Output: The Baccarat value of the card (0–9).
 
-startingbet(int): The value of the first bet the player will make
+### `baccarat_rules(value)`
+- 📥 Input: `value` — an integer.
+- 📤 Output: The Baccarat-adjusted value of a hand.
 
-time(int): Number of iterations to run the strategy for. In an iteration, a player either profits the startingbet value or they go broke.
+### `game()`
+- 🔁 Simulates a full round of Baccarat.
+- 📤 Output: Game result in the format:
+  ```
+  ["Winner", player_total, banker_total]
+  Example: ["Player", 8, 0]
+  ```
 
-Returns: [average(float), median(float), balances[arr]]
+### `simulate_games(games=2)`
+- 🔁 Simulates multiple Baccarat rounds.
+- 📥 Input: Number of games to simulate.
+- 📤 Output: Tally of outcomes in `[Player, Banker, Tie]` format.
 
-def PBPPBB(player): # The logic for the strategy. Bets on PBPPBB doubling up each loss.
+#### Example output from 100,000 simulations:
+```
+Player: 42,640
+Banker: 47,487
+Tie:    9,873
+```
 
-def PlayerSimulation(startingmoney, startingbet, time):
+---
 
-def createPlayer(starting_money, starting_bet): # Create a custom player
+## 📊 Strategy Testing
+
+Use this module to test the PBPPBB strategy — a predetermined pattern of bets: Player, Banker, Player, Player, Banker, Banker.
+
+### `PBPPBB(player)`
+- Implements the PBPPBB betting logic.
+- Bets double after every loss, resets after a win.
+
+### `PlayerSimulation(startingmoney, startingbet, time)`
+- Simulates a single player's experience using the strategy.
+- Tracks how long a player can last based on initial conditions.
+
+### `MultiplePlayerSimulation(players, startingmoney, startingbet, time)`
+- 🔁 Simulates multiple players executing the PBPPBB strategy.
+- 📥 Parameters:
+  - `players (int)` — Number of player agents.
+  - `startingmoney (int)` — Initial money per player.
+  - `startingbet (int)` — Initial bet amount.
+  - `time (int)` — Number of iterations (rounds per player).
+- 📤 Output:
+  ```
+  [
+    average_balance (float),
+    median_balance (float),
+    all_balances (List[int])
+  ]
+  ```
+
+### `createPlayer(starting_money, starting_bet)`
+- 👤 Creates a custom player object with specified starting money and bet.
+
+---
+
+## 📁 File Structure
+
+```
+.
+├── PlayBaccaratInConsole.py     # Console game script
+├── deck-of-cards.py            # Deck and card logic
+├── baccarat_simulation.py      # Game logic and simulation
+├── strategy.py                 # Strategy testing tools
+├── requirements.txt            # Python dependencies
+```
+
+---
+
+## 💬 Example Strategy
+
+```
+PBPPBB:
+  Round 1: Bet on Player
+  Round 2: Bet on Banker
+  Round 3: Bet on Player
+  Round 4: Bet on Player
+  Round 5: Bet on Banker
+  Round 6: Bet on Banker
+```
+
+---
+
+## 📈 Results Snapshot
+
+After simulating 100,000 games using `simulate_games()`:
+
+- **Player Wins:** 42,640  
+- **Banker Wins:** 47,487  
+- **Ties:** 9,873  
+
 
