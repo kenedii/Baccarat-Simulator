@@ -1,0 +1,3 @@
+deck-of-cards
+statistics
+numpy
